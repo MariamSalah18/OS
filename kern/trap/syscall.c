@@ -540,9 +540,13 @@ uint32 sys_get_hard_limit()
 {
 	return curenv->ulimit;
 }
+
 void sys_env_set_nice(int nice){
 	env_set_nice(curenv,nice);
 }
+
+
+
 /**************************************************************************/
 /************************* SYSTEM CALLS HANDLER ***************************/
 /**************************************************************************/
@@ -758,6 +762,7 @@ uint32 syscall(uint32 syscallno, uint32 a1, uint32 a2, uint32 a3, uint32 a4, uin
 		return 0;
 	case SYS_get_hard_limit:
 		return sys_get_hard_limit();
+
 	case SYS_env_set_nice:
 		 sys_get_hard_limit();
 		 return 0;

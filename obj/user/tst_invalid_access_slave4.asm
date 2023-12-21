@@ -4084,6 +4084,7 @@ uint32 sys_get_hard_limit(){
   80192a:	c3                   	ret    
 
 0080192b <sys_env_set_nice>:
+
 void sys_env_set_nice(int nice){
   80192b:	55                   	push   %ebp
   80192c:	89 e5                	mov    %esp,%ebp

@@ -27754,6 +27754,7 @@ f010e8b4:	5d                   	pop    %ebp
 f010e8b5:	c3                   	ret    
 
 f010e8b6 <sys_env_set_nice>:
+
 void sys_env_set_nice(int nice){
 f010e8b6:	55                   	push   %ebp
 f010e8b7:	89 e5                	mov    %esp,%ebp
@@ -28314,6 +28315,7 @@ f010ed38:	eb 1f                	jmp    f010ed59 <syscall+0x486>
 		return sys_get_hard_limit();
 f010ed3a:	e8 6a fb ff ff       	call   f010e8a9 <sys_get_hard_limit>
 f010ed3f:	eb 18                	jmp    f010ed59 <syscall+0x486>
+
 	case SYS_env_set_nice:
 		 sys_get_hard_limit();
 f010ed41:	e8 63 fb ff ff       	call   f010e8a9 <sys_get_hard_limit>

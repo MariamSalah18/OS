@@ -361,6 +361,8 @@ void sys_allocate_user_mem(uint32 virtual_address, uint32 size)
 uint32 sys_get_hard_limit(){
 	return syscall(SYS_get_hard_limit,0,0,0,0,0);
 }
+
 void sys_env_set_nice(int nice){
 	syscall(SYS_env_set_nice,nice,0,0,0,0);
 }
+
