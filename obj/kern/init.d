@@ -11,5 +11,4 @@ obj/kern/init.o: kern/init.c inc/stdio.h inc/stdarg.h inc/string.h \
  kern/mem/boot_memory_manager.h kern/mem/paging_helpers.h \
  kern/mem/working_set_manager.h kern/mem/chunk_operations.h \
  kern/mem/shared_memory_manager.h kern/tests/utilities.h \
- kern/tests/test_kheap.h kern/tests/test_dynamic_allocator.h \
- kern/tests/test_commands.h kern/disk/pagefile_manager.h
+ kern/tests/test_kheap.h kern/disk/pagefile_manager.h

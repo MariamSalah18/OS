@@ -96,8 +96,16 @@ oldbrk= brk;
 		{
 				for(uint32 i=0 ; i<(ROUNDUP(oldbrk, PAGE_SIZE) - brk)/PAGE_SIZE; i++)
 				{
-					unmap_frame(ptr_page_directory, x);
-					x-=PAGE_SIZE;
+					if((ROUNDUP(oldbrk, PAGE_SIZE) - brk)/PAGE_SIZE<=1)
+										{
+											unmap_frame(ptr_page_directory, x);
+										    x-=PAGE_SIZE;
+										}
+										else
+										{
+										    x-=PAGE_SIZE;
+											unmap_frame(ptr_page_directory, x);
+										}
 				}
 
 

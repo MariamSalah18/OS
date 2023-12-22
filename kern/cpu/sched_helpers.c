@@ -8,6 +8,7 @@
 #include <kern/mem/memory_manager.h>
 #include <kern/tests/utilities.h>
 #include <kern/cmd/command_prompt.h>
+#include <inc/fixed_point.h>
 
 //void on_clock_update_WS_time_stamps();
 extern void cleanup_buffers(struct Env* e);
@@ -562,11 +563,11 @@ void env_set_nice(struct Env* e, int nice_value)
 	//recent_cpu/4
 	fixed_point_t recentCPU=fix_unscale(e->recent_cpu,4);
 	//convert pri_max to fixed point
-	fixed_point_t fixed=__mk_fix(PRI_MAX);
+	fixed_point_t fixed=fix_int(PRI_MAX);
 	//pri_max - recent cpu
 	fixed_point_t result=fix_sub(fixed,recentCPU);
 	//convert nice*2 to fixed point
-	 fixed=__mk_fix(e->nice*2);
+	 fixed=fix_int(e->nice*2);
 	//(pri_max - recent cpu) - nice
 	 result=fix_sub(result,fixed);
 	 //convert it to int
@@ -577,6 +578,7 @@ void env_set_nice(struct Env* e, int nice_value)
 	else if(updated_priority<PRI_MIN)
 		updated_priority=PRI_MIN;
 	e->priority=updated_priority;
+	enqueue(&(env_ready_queues[updated_priority]),e);
 	}
 }
 
