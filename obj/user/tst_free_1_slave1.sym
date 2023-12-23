@@ -1,7 +1,7 @@
 00200010 R __STAB_BEGIN__
-00206778 R __STAB_END__
-00206779 R __STABSTR_BEGIN__
-00209fc2 R __STABSTR_END__
+00206820 R __STAB_END__
+00206821 R __STABSTR_BEGIN__
+0020a06a R __STABSTR_END__
 00800020 T _start
 00800031 t args_exist
 00800038 T _main
@@ -119,9 +119,9 @@
 0080269c T alloc_block_NF
 008026b9 T free_block
 00802cc0 T realloc_block_FF
-00803074 T __udivdi3
-00803184 T __umoddi3
-00803780 r error_string
+008030d4 T __udivdi3
+008031e4 T __umoddi3
+008037e0 r error_string
 00804000 D binaryname
 00804004 D FirstTimeFlag
 00804020 B myEnv

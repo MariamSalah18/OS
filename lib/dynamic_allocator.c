@@ -419,24 +419,40 @@ void * realloc_block_FF(void* va, uint32 new_size)
 				struct BlockMetaData* next = LIST_NEXT(iterator);
 
 				//next block more than the needed size
-				if (next->is_free == 1&& next->size>(new_size-iterator->size) && next!=NULL)
-				{
-					if (next->size - (new_size - iterator->size)>=sizeOfMetaData())
+				if (next->is_free == 1 && next != NULL) {
+					if (next->size > (new_size - iterator->size))
 					{
-						struct BlockMetaData *newBlockAfterSplit = (struct BlockMetaData *) ((uint32) iterator + new_size + sizeOfMetaData());
-						newBlockAfterSplit->size = 0;
-						newBlockAfterSplit->is_free = 1;
-						LIST_INSERT_AFTER(&list, iterator, newBlockAfterSplit);
-						next->size = 0;
-						next->is_free = 0;
-						iterator->size = new_size + sizeOfMetaData();
-						return va;
+						if (next->size- (new_size - iterator->size)>=sizeOfMetaData())
+						{
+							struct BlockMetaData *newBlockAfterSplit =(struct BlockMetaData *) ((uint32) iterator	+ new_size + sizeOfMetaData());
+							newBlockAfterSplit->size = 0;
+							newBlockAfterSplit->is_free = 1;
+							LIST_INSERT_AFTER(&list, iterator,newBlockAfterSplit);
+							next->size = 0;
+							next->is_free = 0;
+							iterator->size = new_size + sizeOfMetaData();
+							return va;
+						}
+						else
+						{
+							iterator->size = new_size + sizeOfMetaData();
+							return (iterator + 1);
+						}
 					}
-					else
-					{
-						iterator->size = new_size + sizeOfMetaData();
-						return (iterator + 1);
+					else if (next->size < (new_size - iterator->size)){
+						struct BlockMetaData* alloc_return = alloc_block_FF(new_size);
+						if (alloc_return != NULL)
+						{
+							memcpy(alloc_return, va, iterator->size);
+							free_block(va);
+							return alloc_return;
+						}
+						else
+						{
+							return va;
+						}
 					}
+
 				}
 
 				//next block equal the needed size
@@ -457,13 +473,13 @@ void * realloc_block_FF(void* va, uint32 new_size)
 					struct BlockMetaData* alloc_return = alloc_block_FF(new_size);
 					if (alloc_return != NULL)
 					{
-						*(alloc_return) = *((struct BlockMetaData*)va);
+						memcpy(alloc_return, va, iterator->size);
 						free_block(va);
 						return alloc_return;
 					}
 					else
 					{
-						return ((void*) -1);
+						return va;
 					}
 				}
 			}

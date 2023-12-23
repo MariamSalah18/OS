@@ -65,43 +65,32 @@ void _main(void)
 			freeFrames = sys_calculate_free_frames() ;
 			usedDiskPages = sys_pf_calculate_allocated_pages() ;
 			ptr_allocations[0] = malloc(2*Mega-kilo);
-			cprintf("in test 1 \n");
 			if ((uint32) ptr_allocations[0] != (pagealloc_start)) panic("Wrong start address for the allocated space... ");
 			if ((freeFrames - sys_calculate_free_frames()) >= 512) panic("Wrong allocation: pages are allocated in memory while it's not supposed to!");
 			if ((sys_pf_calculate_allocated_pages() - usedDiskPages) != 0) panic("Extra or less pages are allocated in PageFile");
-			cprintf("in test 2 \n");
 
 
 			freeFrames = sys_calculate_free_frames() ;
-			cprintf("in test 3 \n");
 			lastIndexOfByte = (2*Mega-kilo)/sizeof(char) - 1;
-			cprintf("in test 4 \n");
 
 			byteArr = (char *) ptr_allocations[0];
 
-			cprintf("in test 5 \n");
 
 
 			byteArr[0] = minByte ;
-			cprintf("in test 6 \n");
 
 			byteArr[lastIndexOfByte] = maxByte ;
-			cprintf("in test 7 \n");
 
 			expectedNumOfFrames = 2 /*+1 table already created in malloc due to marking the allocated pages*/ ;
-			cprintf("in test 8 \n");
 
 			actualNumOfFrames = (freeFrames - sys_calculate_free_frames()) ;
-			cprintf("in test 9 \n");
 
 			if (actualNumOfFrames < expectedNumOfFrames)
 				panic("Wrong fault handler: pages are not loaded successfully into memory/WS. Expected diff in frames at least = %d, actual = %d\n", expectedNumOfFrames, actualNumOfFrames);
-			cprintf("in test 10 \n");
 
 			uint32 expectedVAs[2] = { ROUNDDOWN((uint32)(&(byteArr[0])), PAGE_SIZE), ROUNDDOWN((uint32)(&(byteArr[lastIndexOfByte])), PAGE_SIZE)} ;
 			found = sys_check_WS_list(expectedVAs, 2, 0, 2);
 			if (found != 1) panic("malloc: page is not added to WS");
-			cprintf("in test 11 \n");
 		}
 		//cprintf("4\n");
 
@@ -113,7 +102,6 @@ void _main(void)
 			if ((uint32) ptr_allocations[1] != (pagealloc_start + 2*Mega)) panic("Wrong start address for the allocated space... ");
 			if ((freeFrames - sys_calculate_free_frames()) >= 512) panic("Wrong allocation: pages are allocated in memory while it's not supposed to!");
 			if ((sys_pf_calculate_allocated_pages() - usedDiskPages) != 0) panic("Extra or less pages are allocated in PageFile");
-			cprintf("in test 12 \n");
 
 			freeFrames = sys_calculate_free_frames() ;
 			shortArr = (short *) ptr_allocations[1];
@@ -127,7 +115,6 @@ void _main(void)
 			uint32 expectedVAs[2] = { ROUNDDOWN((uint32)(&(shortArr[0])), PAGE_SIZE), ROUNDDOWN((uint32)(&(shortArr[lastIndexOfShort])), PAGE_SIZE)} ;
 			found = sys_check_WS_list(expectedVAs, 2, 0, 2);
 			if (found != 1) panic("malloc: page is not added to WS");
-			cprintf("in test 13 \n");
 
 		}
 		//cprintf("5\n");
@@ -151,7 +138,6 @@ void _main(void)
 			uint32 expectedVAs[2] = { ROUNDDOWN((uint32)(&(intArr[0])), PAGE_SIZE), ROUNDDOWN((uint32)(&(intArr[lastIndexOfInt])), PAGE_SIZE)} ;
 			found = sys_check_WS_list(expectedVAs, 2, 0, 2);
 			if (found != 1) panic("malloc: page is not added to WS");
-			cprintf("in test 14 \n");
 
 		}
 
@@ -161,7 +147,6 @@ void _main(void)
 			ptr_allocations[3] = malloc(3*kilo);
 			if ((uint32) ptr_allocations[3] != (pagealloc_start + 4*Mega + 4*kilo)) panic("Wrong start address for the allocated space... ");
 			if ((sys_pf_calculate_allocated_pages() - usedDiskPages) != 0) panic("Extra or less pages are allocated in PageFile");
-			cprintf("in test 15 \n");
 
 		}
 
@@ -186,7 +171,6 @@ void _main(void)
 			uint32 expectedVAs[2] = { ROUNDDOWN((uint32)(&(structArr[0])), PAGE_SIZE), ROUNDDOWN((uint32)(&(structArr[lastIndexOfStruct])), PAGE_SIZE)} ;
 			found = sys_check_WS_list(expectedVAs, 2, 0, 2);
 			if (found != 1) panic("malloc: page is not added to WS");
-			cprintf("in test 16 \n");
 
 		}
 
@@ -198,7 +182,6 @@ void _main(void)
 			if ((uint32) ptr_allocations[5] != (pagealloc_start + 4*Mega + 16*kilo)) panic("Wrong start address for the allocated space... ");
 			if ((freeFrames - sys_calculate_free_frames()) >= 3*Mega/PAGE_SIZE) panic("Wrong allocation: pages are allocated in memory while it's not supposed to!");
 			if ((sys_pf_calculate_allocated_pages() - usedDiskPages) != 0) panic("Extra or less pages are allocated in PageFile");
-			cprintf("in test 17 \n");
 
 		}
 
@@ -211,7 +194,6 @@ void _main(void)
 			if ((freeFrames - sys_calculate_free_frames()) >= 6*Mega/PAGE_SIZE) panic("Wrong allocation: pages are allocated in memory while it's not supposed to!");
 			if ((sys_pf_calculate_allocated_pages() - usedDiskPages) != 0) panic("Extra or less pages are allocated in PageFile");
 
-			cprintf("in test 18 \n");
 
 
 			freeFrames = sys_calculate_free_frames() ;
@@ -228,7 +210,6 @@ void _main(void)
 			found = sys_check_WS_list(expectedVAs, 3, 0, 2);
 			if (found != 1) panic("malloc: page is not added to WS");
 
-			cprintf("in test 19 \n");
 
 		}
 
@@ -255,7 +236,6 @@ void _main(void)
 			found = sys_check_WS_list(expectedVAs, 3, 0, 2);
 			if (found != 1) panic("malloc: page is not added to WS");
 
-			cprintf("in test 20 \n");
 
 		}
 	}
@@ -266,21 +246,18 @@ void _main(void)
 		if (shortArr[0] != minShort || shortArr[lastIndexOfShort] 	!= maxShort) panic("Wrong allocation: stored values are wrongly changed!");
 		if (intArr[0] 	!= minInt 	|| intArr[lastIndexOfInt] 		!= maxInt) panic("Wrong allocation: stored values are wrongly changed!");
 
-		cprintf("in test 21 \n");
 
 
 		if (structArr[0].a != minByte 	|| structArr[lastIndexOfStruct].a != maxByte) 	panic("Wrong allocation: stored values are wrongly changed!");
 		if (structArr[0].b != minShort 	|| structArr[lastIndexOfStruct].b != maxShort) 	panic("Wrong allocation: stored values are wrongly changed!");
 		if (structArr[0].c != minInt 	|| structArr[lastIndexOfStruct].c != maxInt) 	panic("Wrong allocation: stored values are wrongly changed!");
 
-		cprintf("in test 22 \n");
 
 
 		if (byteArr2[0]  != minByte  || byteArr2[lastIndexOfByte2/2]   != maxByte/2 	|| byteArr2[lastIndexOfByte2] 	!= maxByte) panic("Wrong allocation: stored values are wrongly changed!");
 		if (shortArr2[0] != minShort || shortArr2[lastIndexOfShort2/2] != maxShort/2 || shortArr2[lastIndexOfShort2] 	!= maxShort) panic("Wrong allocation: stored values are wrongly changed!");
 
 
-		cprintf("in test 23 \n");
 
 	}
 	cprintf("Congratulations!! test malloc (1) completed successfully.\n");

@@ -140,21 +140,24 @@ void free_user_mem(struct Env* e, uint32 virtual_address, uint32 size)
 	//TODO: [PROJECT'23.MS2 - #16] [2] USER HEAP - free_user_mem()
 	if (isPageReplacmentAlgorithmFIFO())
 	{
-	 struct WorkingSetElement* temp;
-	 struct WorkingSetElement* iter;
-	 struct WorkingSetElement* move;
-	 temp=e->page_last_WS_element;
-	LIST_FOREACH(iter,&(e->page_WS_list))
-	 {
-		 if(temp==iter)
+		 struct WorkingSetElement* temp;
+		 struct WorkingSetElement* iter;
+		 struct WorkingSetElement* move;
+		 temp=e->page_last_WS_element;
+		 uint32 size=LIST_SIZE(&(e->page_WS_list));
+		 int iternum=1;
+		 LIST_FOREACH(iter,&(e->page_WS_list))
 		 {
-			 break;
+			 if(temp==iter||iternum==size)
+			 {
+				 break;
+			 }
+			 move=iter;
+			 LIST_REMOVE(&(e->page_WS_list),move);
+			 LIST_INSERT_TAIL(&(e->page_WS_list),move);
+			 iternum++;
 		 }
-		 move=iter;
-		 LIST_REMOVE(&(e->page_WS_list),move);
-		 LIST_INSERT_TAIL(&(e->page_WS_list),move);
-	 }
-	 e->page_last_WS_element=LIST_FIRST(&(e->page_WS_list));
+		 e->page_last_WS_element=LIST_FIRST(&(e->page_WS_list));
 	}
 
 	uint32 numOfPages = size/ PAGE_SIZE;

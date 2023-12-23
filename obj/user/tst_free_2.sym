@@ -1,7 +1,7 @@
 00200010 R __STAB_BEGIN__
-002072dc R __STAB_END__
-002072dd R __STABSTR_BEGIN__
-0020ab88 R __STABSTR_END__
+00207384 R __STAB_END__
+00207385 R __STABSTR_BEGIN__
+0020ac30 R __STABSTR_END__
 00800020 T _start
 00800031 t args_exist
 00800038 T _main
@@ -119,9 +119,9 @@
 0080311d T alloc_block_NF
 0080313a T free_block
 00803741 T realloc_block_FF
-00803af8 T __udivdi3
-00803c08 T __umoddi3
-00804e20 r error_string
+00803b54 T __udivdi3
+00803c64 T __umoddi3
+00804e80 r error_string
 00806000 D allocSizes
 0080601c D binaryname
 00806020 D FirstTimeFlag

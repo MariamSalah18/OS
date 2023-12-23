@@ -1,7 +1,7 @@
 00200010 R __STAB_BEGIN__
-00206acc R __STAB_END__
-00206acd R __STABSTR_BEGIN__
-0020a2d2 R __STABSTR_END__
+00206b74 R __STAB_END__
+00206b75 R __STABSTR_BEGIN__
+0020a37a R __STABSTR_END__
 00800020 T _start
 00800031 t args_exist
 00800038 T _main
@@ -117,11 +117,11 @@
 00802941 T alloc_block_NF
 0080295e T free_block
 00802f65 T realloc_block_FF
-00803319 T _panic
-0080338b T CheckWSArrayWithoutLastIndex
-00803504 T __udivdi3
-00803614 T __umoddi3
-00803f00 r error_string
+00803376 T _panic
+008033e8 T CheckWSArrayWithoutLastIndex
+00803560 T __udivdi3
+00803670 T __umoddi3
+00803f60 r error_string
 00805000 D binaryname
 00805004 D FirstTimeFlag
 00805020 B myEnv
