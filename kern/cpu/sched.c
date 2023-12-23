@@ -158,7 +158,8 @@ void sched_init_MLFQ(uint8 numOfLevels, uint8 *quantumOfEachLevel) {
 // [5] Initialize BSD Scheduler:
 //===============================
 uint32 quantumPerSec;
-void sched_init_BSD(uint8 numOfLevels, uint8 quantum) {
+void sched_init_BSD(uint8 numOfLevels, uint8 quantum)
+{
 #if USE_KHEAP
 	//TODO: [PROJECT'23.MS3 - #4] [2] BSD SCHEDULER - sched_init_BSD
 	quantumPerSec = 1000 / quantum;
@@ -169,7 +170,8 @@ void sched_init_BSD(uint8 numOfLevels, uint8 quantum) {
 	quantums = kmalloc(sizeof(uint8));
 	quantums[0] = quantum;
 	kclock_set_quantum(quantums[0]);
-	for (int i = 0; i < num_of_ready_queues; i++) {
+	for (int i = 0; i < num_of_ready_queues; i++)
+	{
 		init_queue(&(env_ready_queues[i]));
 
 	}
@@ -193,14 +195,18 @@ struct Env* fos_scheduler_MLFQ() {
 //=========================
 // [7] BSD Scheduler:
 //=========================
-struct Env* fos_scheduler_BSD() {
+struct Env* fos_scheduler_BSD()
+{
 	//TODO: [PROJECT'23.MS3 - #5] [2] BSD SCHEDULER - fos_scheduler_BSD
 
-	if (curenv != NULL) {
+	if (curenv != NULL)
+	{
 		enqueue(&env_ready_queues[curenv->priority], curenv);
 	}
-	for (int i = (num_of_ready_queues - 1); i >= 0; i--) {
-		if (queue_size(&env_ready_queues[i]) > 0) {
+	for (int i = (num_of_ready_queues - 1); i >= 0; i--)
+	{
+		if (queue_size(&env_ready_queues[i]) > 0)
+		{
 			kclock_set_quantum(quantums[0]);
 			return dequeue(&env_ready_queues[i]);
 		}
@@ -302,7 +308,6 @@ void clock_interrupt_handler()
 				{
 					curenv->priority = priority_temp;
 				}
-				enqueue(&env_ready_queues[curenv->priority], curenv);
 			}
 		}
 	}

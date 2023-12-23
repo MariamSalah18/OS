@@ -329,5 +329,5 @@ char* str2lower(char *dst, const char *src)
 		}
 
 	}
-	return NULL;
+	return dst;
 }

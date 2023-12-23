@@ -578,7 +578,6 @@ void env_set_nice(struct Env* e, int nice_value)
 	else if(updated_priority<PRI_MIN)
 		updated_priority=PRI_MIN;
 	e->priority=updated_priority;
-	enqueue(&(env_ready_queues[updated_priority]),e);
 	}
 }
 

@@ -138,11 +138,6 @@ void free_user_mem(struct Env* e, uint32 virtual_address, uint32 size)
 {
 
 	//TODO: [PROJECT'23.MS2 - #16] [2] USER HEAP - free_user_mem()
-	//example
-	//10->20->30*->40
-	//what i want : 30->40->10->20
-	//what this code do :30*->10->20->40
-	//to slove this problem i have to move the all the prev elements to the tail
 	if (isPageReplacmentAlgorithmFIFO())
 	{
 	 struct WorkingSetElement* temp;
@@ -161,6 +156,7 @@ void free_user_mem(struct Env* e, uint32 virtual_address, uint32 size)
 	 }
 	 e->page_last_WS_element=LIST_FIRST(&(e->page_WS_list));
 	}
+
 	uint32 numOfPages = size/ PAGE_SIZE;
 	uint32 start_va =ROUNDDOWN(virtual_address,PAGE_SIZE);
 	uint32 end_va = ROUNDUP(start_va+size,PAGE_SIZE	);
